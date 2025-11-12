@@ -5,7 +5,7 @@ function showTeams(){
         while IFS=$'\t' read -r id name; do
             data_teams_menu_items+=("$id $name")
         done <<<"$data_teams"
-        selected=$(printf '%s\n' "${data_teams_menu_items[@]}" | rofi -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Teams")
+        selected=$(printf '%s\n' "${data_teams_menu_items[@]}" | rofi -i -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Teams")
     fi
     exit 0
 }
@@ -17,7 +17,7 @@ function showUsers(){
         while IFS=$'\t' read -r id name; do
             data_users_menu_items+=("$id $name")
         done <<<"$data_users"
-        selected=$(printf '%s\n' "${data_users_menu_items[@]}" | rofi -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Users")
+        selected=$(printf '%s\n' "${data_users_menu_items[@]}" | rofi -i -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Users")
     fi
     exit 0
 }
@@ -29,7 +29,7 @@ function showChallenges(){
         while IFS=$'\t' read -r id category name; do
             data_challenges_menu_items+=("$id $category $name")
         done <<<"$data_challenges"
-        selected=$(printf '%s\n' "${data_challenges_menu_items[@]}" | rofi -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Challenges")
+        selected=$(printf '%s\n' "${data_challenges_menu_items[@]}" | rofi -i -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Challenges")
     fi
     exit 0
 }
@@ -41,7 +41,7 @@ function showSherlocks(){
         while IFS=$'\t' read -r id category name; do
             data_sherlocks_menu_items+=("$id $category $name")
         done <<<"$data_sherlocks"
-        selected=$(printf '%s\n' "${data_sherlocks_menu_items[@]}" | rofi -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Sherlocks")
+        selected=$(printf '%s\n' "${data_sherlocks_menu_items[@]}" | rofi -i -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Sherlocks")
     fi
     exit 0
 }
@@ -53,7 +53,7 @@ function showMachines(){
         while IFS=$'\t' read -r id name; do
             data_machines_menu_items+=("$id $name")
         done <<<"$data_machines"
-        selected=$(printf '%s\n' "${data_machines_menu_items[@]}" | rofi -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Machines")
+        selected=$(printf '%s\n' "${data_machines_menu_items[@]}" | rofi -i -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Machines")
     fi
     exit 0
 }
@@ -61,14 +61,14 @@ function showMachines(){
 function showSearch(){
     local data=$1
     options=("Teams" "Users" "Challenges" "Sherlocks" "Machines" "Exit")
-    selected=$(printf '%s\n' "${options[@]}" | rofi -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Choose to explore")
+    selected=$(printf '%s\n' "${options[@]}" | rofi -i -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Choose to explore")
     case "$selected" in
         "Teams")
             if [[ $(echo $data | jq -r '.teams') != "null"  ]];then
                 data_teams=$(echo $data | jq -r '.teams[] | [.id, .value] | @tsv')
                 showTeams "$data_teams"
             fi
-            printf '%s\n' "OK" | rofi -config ~/.config/rofi/htb/themes/rasi/dialog.rasi -dmenu -p "No Team found with this name."
+            printf '%s\n' "OK" | rofi -i -config ~/.config/rofi/htb/themes/rasi/dialog.rasi -dmenu -p "No Team found with this name."
             exit 0
             ;;
         "Users")
@@ -76,7 +76,7 @@ function showSearch(){
                 data_users=$(echo $data | jq -r '.users[] | [.id, .value] | @tsv')
                 showUsers "$data_users"
             fi
-            printf '%s\n' "OK" | rofi -config ~/.config/rofi/htb/themes/rasi/dialog.rasi -dmenu -p "No User found with this name."
+            printf '%s\n' "OK" | rofi -i -config ~/.config/rofi/htb/themes/rasi/dialog.rasi -dmenu -p "No User found with this name."
             exit 0
             ;;
         "Challenges")
@@ -84,7 +84,7 @@ function showSearch(){
                 data_challenges=$(echo $data | jq -r '.challenges[] | [.id, .category_name, .value] | @tsv')
                 showChallenges "$data_challenges"
             fi
-            printf '%s\n' "OK" | rofi -config ~/.config/rofi/htb/themes/rasi/dialog.rasi -dmenu -p "No Challenge found with this name."
+            printf '%s\n' "OK" | rofi -i -config ~/.config/rofi/htb/themes/rasi/dialog.rasi -dmenu -p "No Challenge found with this name."
             exit 0
             ;;
         "Sherlocks")
@@ -92,7 +92,7 @@ function showSearch(){
                 data_sherlocks=$(echo $data | jq -r '.sherlocks[] | [.id, .category_name, .value] | @tsv')
                 showSherlocks "$data_sherlocks"
             fi
-            printf '%s\n' "OK" | rofi -config ~/.config/rofi/htb/themes/rasi/dialog.rasi -dmenu -p "No Sherlocks found with this name."
+            printf '%s\n' "OK" | rofi -i -config ~/.config/rofi/htb/themes/rasi/dialog.rasi -dmenu -p "No Sherlocks found with this name."
             exit 0
             ;;
         "Machines")
@@ -100,7 +100,7 @@ function showSearch(){
                 data_machines=$(echo $data | jq -r '.machines[] | [.id, .value] | @tsv')
                 showMachines "$data_machines"
             fi
-            printf '%s\n' "OK" | rofi -config ~/.config/rofi/htb/themes/rasi/dialog.rasi -dmenu -p "No Machines found with this name."
+            printf '%s\n' "OK" | rofi -i -config ~/.config/rofi/htb/themes/rasi/dialog.rasi -dmenu -p "No Machines found with this name."
             exit 0
             ;;
         "Exit")

@@ -28,7 +28,7 @@ function showActiveMachines(){
 				active_machines_menu_items+=("$name ($difficulty) $os_short $active")
 				active_machines_ids+=("$id")
 			done <<<"$active_options_selected_output"
-			selected=$(printf "%s\n" "${active_machines_menu_items[@]}" | rofi -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Select an option (use ↑ ↓ arrows and Enter)")
+			selected=$(printf "%s\n" "${active_machines_menu_items[@]}" | rofi -i -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Select an option (use ↑ ↓ arrows and Enter)")
 			;;
 		"Incomplete")
 			active_options_selected_output=$(curl -sS -X 'GET' "https://labs.hackthebox.com/api/v4/machine/paginated?per_page=20&show_completed=incomplete" -H 'accept: application/json' -H "Authorization: Bearer $token" | jq -r '.data[] | [.id, .name, .os, .difficultyText, (.active // "false")] | @tsv')
@@ -57,7 +57,7 @@ function showActiveMachines(){
 				active_machines_menu_items+=("$name ($difficulty) $os_short $active")
 				active_machines_ids+=("$id")
 			done <<<"$active_options_selected_output"
-			selected=$(printf "%s\n" "${active_machines_menu_items[@]}" | rofi -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Select an option (use ↑ ↓ arrows and Enter)")
+			selected=$(printf "%s\n" "${active_machines_menu_items[@]}" | rofi -i -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Select an option (use ↑ ↓ arrows and Enter)")
 			;;
 		"Both")
 			active_options_selected_output=$(curl -sS -X 'GET' "https://labs.hackthebox.com/api/v4/machine/paginated?per_page=20" -H 'accept: application/json' -H "Authorization: Bearer $token" | jq -r '.data[] | [.id, .name, .os, .difficultyText, (.active // "false")] | @tsv')
@@ -86,7 +86,7 @@ function showActiveMachines(){
 				active_machines_menu_items+=("$name ($difficulty) $os_short $active")
 				active_machines_ids+=("$id")
 			done <<<"$active_options_selected_output"
-			selected=$(printf "%s\n" "${active_machines_menu_items[@]}" | rofi -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Select an option (use ↑ ↓ arrows and Enter)")
+			selected=$(printf "%s\n" "${active_machines_menu_items[@]}" | rofi -i -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Select an option (use ↑ ↓ arrows and Enter)")
 			;;
 		"Exit")
 			return
@@ -97,7 +97,7 @@ function showActiveMachines(){
 function resetMachine(){
 	local running_machine_id=$1
 	local running_machine_name=$2
-	running_machine_selected=$(printf '%s\n' "Yes" "No" | rofi -config ~/.config/rofi/htb/themes/rasi/confirmation.rasi -dmenu -p "Reset the machine?")
+	running_machine_selected=$(printf '%s\n' "Yes" "No" | rofi -i -config ~/.config/rofi/htb/themes/rasi/confirmation.rasi -dmenu -p "Reset the machine?")
 	case "$running_machine_selected" in
 		"Yes")
 			curl -sS -X 'POST' 'https://labs.hackthebox.com/api/v4/vm/reset' -H 'accept: application/json' -H "Authorization: Bearer $token" -H 'content-type: application/json' -d "{\"machine_id\": $running_machine_id}" > /dev/null

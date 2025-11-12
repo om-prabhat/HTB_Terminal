@@ -27,7 +27,7 @@ function showRetiredMachines(){
 				    retired_machines_ids+=("$id")
                 done <<<"$retired_options_selected_output_formatted"
             done
-            selected=$(printf "%s\n" "${retired_machines_menu_items[@]}" | rofi -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Select an option (use ↑ ↓ arrows and Enter)")
+            selected=$(printf "%s\n" "${retired_machines_menu_items[@]}" | rofi -i -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Select an option (use ↑ ↓ arrows and Enter)")
             ;;
         "Incomplete")
             retired_options_selected_output_next="https://labs.hackthebox.com/api/v4/machine/list/retired/paginated?per_page=100&show_completed=incomplete"
@@ -53,7 +53,7 @@ function showRetiredMachines(){
 				    retired_machines_ids+=("$id")
                 done <<<"$retired_options_selected_output_formatted"
             done
-            selected=$(printf "%s\n" "${retired_machines_menu_items[@]}" | rofi -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Select an option (use ↑ ↓ arrows and Enter)")
+            selected=$(printf "%s\n" "${retired_machines_menu_items[@]}" | rofi -i -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Select an option (use ↑ ↓ arrows and Enter)")
             ;;
         "Both")
             retired_options_selected_output_next="https://labs.hackthebox.com/api/v4/machine/list/retired/paginated?per_page=100"
@@ -79,7 +79,7 @@ function showRetiredMachines(){
 				    retired_machines_ids+=("$id")
                 done <<<"$retired_options_selected_output_formatted"
             done
-            selected=$(printf "%s\n" "${retired_machines_menu_items[@]}" | rofi -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Select an option (use ↑ ↓ arrows and Enter)")
+            selected=$(printf "%s\n" "${retired_machines_menu_items[@]}" | rofi -i -config ~/.config/rofi/htb/themes/rasi/htb_theme.rasi -dmenu -p "Select an option (use ↑ ↓ arrows and Enter)")
             ;;
         "Exit")
             return
