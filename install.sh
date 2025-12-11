@@ -7,7 +7,18 @@ for ((i=0; i<${#deps}; i++)) do
 	sleep 0.05
 done
 echo ""
-sudo apt install rofi curl jq xclip -y
+
+if command -v apt >/dev/null 2>&1;then
+	sudo apt update
+	sudo apt install -y rofi curl jq xclip
+elif command -v pacman >/dev/null 2>&1;then
+	sudo pacman -Sy --noconfirm rofi curl jq xclip
+else 
+	echo -e "\033[31mUnsupported package manager. Install rofi, curl, jq, xclip manually.\033[0m"
+fi
+
+
+#sudo apt install rofi curl jq xclip -y
 
 ins="[+] Installing..."
 
@@ -26,6 +37,7 @@ for ((i=0;i<${#pins};i++)) do
 	sleep 0.05
 done
 echo ""
+echo -e "\033[34mhttps://app.hackthebox.com/account-settings\033[0m"
 read -p "Enter your token: " token
 echo $token > ~/.config/rofi/htb/.token
 
